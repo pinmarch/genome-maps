@@ -1,9 +1,9 @@
 {
     "name": "GenomeMaps",
-    "version": "3.1.7",
+    "version": "3.1.7a",
     "repository": {
         "type": "git",
-        "url": "https://github.com/opencb/genome-maps.git"
+        "url": "https://github.com/pinmarch/genome-maps.git"
     },
     "devDependencies": {
         "grunt": "~0.4.1",

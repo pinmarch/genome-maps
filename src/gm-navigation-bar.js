@@ -233,14 +233,6 @@ GmNavigationBar.prototype = {
                         _this.trigger('autoHeight-buttonchromosomesButton:click', {sender: _this});
                     }
                 },
-                /*{
-                    tooltip: 'Tracks will be compacted automatically',
-                    iconCls: 'ocb-icon-compressed',
-                    handler: function () {
-                        $(".ocb-compactable").toggle();
-                        //_this.trigger('autoHeight-button:click', {sender: _this});
-                    }
-                },*/
                 '->',
                 this._createSearchComboBox(),
                 {
@@ -352,20 +344,6 @@ GmNavigationBar.prototype = {
         /*END chromolendar*/
 
         menu.add(chrView);
-//        for (var i in list) {
-//            var chromosomeName = list[i];
-//            var menuEntry = Ext.create('Ext.menu.Item', {
-//                text: chromosomeName,
-//                handler: function () {
-//                    console.log(this.text);
-//                    button.setText(this.text);
-//                    _this.region.chromosome = this.text;
-//                    _this._addRegionHistoryMenuItem(_this.region);
-//                    _this.trigger('region:change', {region: _this.region, sender: _this});
-//                }
-//            });
-//            menu.add(menuEntry);
-//        }
     },
 
     _setSpeciesMenu: function () {
@@ -442,27 +420,6 @@ GmNavigationBar.prototype = {
             this.trigger('region:change', {region: this.region, sender: this});
         }
     },
-
-//    _quickSearch: function (query) {
-//        var results = [];
-//        var speciesCode = Utils.getSpeciesCode(this.species.text).substr(0, 3);
-////        var host = new CellBaseManager().host;
-//        var host = 'http://ws.bioinfo.cipf.es/cellbase/rest';
-//        $.ajax({
-//            url: host + '/latest/' + speciesCode + '/feature/id/' + query.term + '/starts_with?of=json',
-//            async: false,
-//            dataType: 'json',
-//            success: function (data, textStatus, jqXHR) {
-//                for (var i in data[0]) {
-//                    results.push(data[0][i].displayId);
-//                }
-//            },
-//            error: function (jqXHR, textStatus, errorThrown) {
-//                console.log(textStatus);
-//            }
-//        });
-//        return results;
-//    },
 
     _goFeature: function (featureName) {
         if (featureName != null) {
@@ -566,7 +523,6 @@ GmNavigationBar.prototype = {
             ]
         });
 
-//        console.log(searchResults)
         var searchCombo = Ext.create('Ext.form.ComboBox', {
             id: this.id + '-quick-search',
             fieldLabel: 'Search:',
@@ -608,39 +564,10 @@ GmNavigationBar.prototype = {
                 select: function (field, e) {
                     _this._goFeature(this.getValue())
                 }
-//			,specialkey: function(field, e){
-//				if (e.getKey() == e.ENTER) {
-//					_this._handleGmNavigationBar('GoToGene');
-//				}
-//			}
             }
         });
         return searchCombo;
     },
-//
-//    _createFullScreenButton: function () {
-//        var _this = this;
-//        var regionButton = Ext.create('Ext.Button', {
-//            id: this.id + "FullScreenButton",
-//            text: 'F11',
-//            cls: 'x-btn-text-icon',
-//            enableToggle: false,
-//            toggleHandler: function () {
-//                var elem = document.getElementById("genome-viewer");
-//                req = elem.requestFullScreen || elem.webkitRequestFullScreen || elem.mozRequestFullScreen;
-//                req.call(elem);
-////                if (elem.requestFullscreen) {
-////                    elem.requestFullscreen();
-////                } else if (elem.mozRequestFullScreen) {
-////                    elem.mozRequestFullScreen();
-////                } else if (elem.webkitRequestFullscreen) {
-////                    elem.webkitRequestFullscreen();
-////                }
-//            }
-//
-//        });
-//        return regionButton;
-//    },
     setSpeciesVisible: function (bool) {
         if (bool) {
             Ext.getCmp(this.id + "speciesMenuButton").show();

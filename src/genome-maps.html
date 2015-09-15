@@ -19,8 +19,6 @@
     })();
 </script>
 
-<link rel="stylesheet" type="text/css" href="http://cdn.sencha.io/ext/gpl/4.2.1/resources/css/ext-all-gray.css">
-
 <!-- build:style vendor -->
 <link type="text/css" rel="stylesheet" href="../lib/jsorolla/vendor/ChemDoodleWeb.css"/>
 <link type="text/css" rel="stylesheet" href="../lib/jsorolla/vendor/jquery.qtip.min.css"/>
@@ -32,9 +30,6 @@
 <!-- build:style css -->
 <link type="text/css" rel="stylesheet" href="../lib/jsorolla/styles/css/style.css"/>
 <!-- /build -->
-
-<script type="text/javascript" src="http://cdn.sencha.io/ext/gpl/4.2.1/ext-all.js"></script>
-<script type="text/javascript" src="http://cdn.sencha.io/ext/gpl/4.2.1/examples/shared/examples.js"></script>
 
 <script type="text/javascript">
     WORKERS_PATH = "./";
@@ -60,11 +55,6 @@
 <script type="text/javascript" src="../lib/jsorolla/vendor/jquery.mousewheel.min.js"></script>
 <script type="text/javascript" src="../lib/jsorolla/vendor/gl-matrix-min.js"></script>
 <script type="text/javascript" src="../lib/jsorolla/vendor/ChemDoodleWeb.js"></script>
-
-<!--<script type="text/javascript" src="../vendor/genome-viewer-1.0.2.js"></script>-->
-<!--<script type="text/javascript" src="../vendor/opencga-1.0.0.js"></script>-->
-
-
 <!-- /build -->
 
 
@@ -175,16 +165,9 @@
 <!-- /build -->
 
 <script>
-    Ext.Loader.setConfig({enabled: true});
-    Ext.Loader.setPath('Ext.ux', 'http://cdn.sencha.io/ext/gpl/4.2.1/examples/ux');
-    //    Ext.QuickTips.init();
-    //    Ext.require([
-    //        'Ext.grid.plugin.BufferedRenderer'
-    //    ]);
-
     var genomeMaps;
-    Ext.onReady(function () {
-        CheckBrowser();
+    $(function () {
+        //CheckBrowser();
         genomeMaps = new GenomeMaps({
             targetId: 'application',
             autoRender: true
@@ -192,7 +175,7 @@
         genomeMaps.draw();
     });
 </script>
-<STYLE type="text/css">
+<style type="text/css">
     html {
         overflow-y: scroll;
         overflow-x: hidden;
@@ -212,7 +195,7 @@
         background-color: #f5f5f5;
         padding: 4px;
     }
-</STYLE>
+</style>
 </head>
 <body>
 <div id="checkBrowser"></div>

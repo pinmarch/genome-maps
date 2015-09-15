@@ -51,14 +51,14 @@ module.exports = function (grunt) {
                 options: {
                     beautify: true,
                     styles: {
-                        'vendor': [
+                        vendor: [
                             '<%= def.build %>/vendor/jquery.qtip*.css',
                             '<%= def.build %>/vendor/ChemDoodleWeb*.css',
                             '<%= def.build %>/vendor/bootstrap-*-dist/css/bootstrap.min.css',
                             '<%= def.build %>/vendor/typeahead.js-bootstrap.css',
                             '<%= def.build %>/vendor/jquery.simplecolorpicker.css'
                         ],
-                        'css': ['<%= def.build %>/styles/css/style.css']
+                        css: ['<%= def.build %>/styles/css/style.css']
                     },
                     scripts: {
                         vendor: [
@@ -68,14 +68,14 @@ module.exports = function (grunt) {
                             '<%= def.build %>/vendor/bootstrap-*-dist/js/bootstrap.min.js',
                             '<%= def.build %>/vendor/typeahead.min.js',
                             '<%= def.build %>/vendor/jquery.mousewheel*.js',
-                            '<%= def.build %>/vendor/gl-matrix-min*.js',
-                            '<%= def.build %>/vendor/ChemDoodleWeb*.js',
                             '<%= def.build %>/vendor/jquery.cookie*.js',
-                            '<%= def.build %>/vendor/purl*.js',
                             '<%= def.build %>/vendor/jquery.sha1*.js',
                             '<%= def.build %>/vendor/jquery.qtip*.js',
                             '<%= def.build %>/vendor/rawdeflate*.js',
                             '<%= def.build %>/vendor/xml2json.js',
+                            '<%= def.build %>/vendor/gl-matrix-min*.js',
+                            '<%= def.build %>/vendor/ChemDoodleWeb*.js',
+                            '<%= def.build %>/vendor/purl*.js',
                         ],
                         config: [
                             '<%= def.build %>/gv-config.js'
@@ -121,11 +121,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-curl');
     grunt.loadNpmTasks('grunt-hub');
 
-    grunt.registerTask('log-deploy', 'Deploy path info', function (version) {
-        grunt.log.writeln("DEPLOY COMMAND: scp -r build/" + grunt.config.data.pkg.version + " cafetero@mem16:/httpd/bioinfo/www-apps/" + grunt.config.data.def.name + "/");
-    });
-
     // Default task.
-    grunt.registerTask('default', ['hub','clean', 'concat', 'uglify', 'copy', 'htmlbuild', 'rename', 'log-deploy']);
+    grunt.registerTask('default', ['hub','clean', 'concat', 'uglify', 'copy', 'htmlbuild', 'rename']);
 
 };
