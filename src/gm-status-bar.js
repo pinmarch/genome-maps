@@ -52,57 +52,57 @@ GmStatusBar.prototype = {
         $(this.targetDiv).append(this.div);
         $(this.div).css({height:'26px'});
 
-        var geneLegendPanel = new LegendPanel({title: 'Gene legend'});
-        var snpLegendPanel = new LegendPanel({title: 'SNP legend'});
+        // var geneLegendPanel = new LegendPanel({title: 'Gene legend'});
+        // var snpLegendPanel = new LegendPanel({title: 'SNP legend'});
 
-        var taskbar = Ext.create('Ext.toolbar.Toolbar', {
-//            id: this.id + 'uxTaskbar',
-            winMgr: new Ext.ZIndexManager(),
-            enableOverflow: true,
-            cls: 'gm-navigation-bar',
-//            height: 28,
-            flex: 1
-        });
+//         var taskbar = Ext.create('Ext.toolbar.Toolbar', {
+// //            id: this.id + 'uxTaskbar',
+//             winMgr: new Ext.ZIndexManager(),
+//             enableOverflow: true,
+//             cls: 'gm-navigation-bar',
+// //            height: 28,
+//             flex: 1
+//         });
 
-        var toolbar = Ext.create('Ext.toolbar.Toolbar', {
-            id: this.id + 'toolbar',
-            width: '100%',
-            cls: 'gm-navigation-bar',
-            border: false,
-            items: [
-                '->',
-                {
-                    xtype: 'tbtext',
-                    text: 'Mouse position: ',
-                    style:'color:slategray'
-                },
-                {
-                    id: this.id + 'mousePosition',
-                    text: '<span id="'+this.id+'mousePositionEl">&nbsp;</span>',
-                    xtype: 'tbtext',
-                    width:100
-                },
-                geneLegendPanel.getButton(GENE_BIOTYPE_COLORS),
-                snpLegendPanel.getButton(SNP_BIOTYPE_COLORS),
-                {
-                    id: this.id + 'version',
-                    xtype: 'tbtext',
-                    margin: '0 10 0 15',
-                    style:'color:slategray',
-                    text: ' Genome Maps ' + this.version
-                }
-            ]
-        });
+//         var toolbar = Ext.create('Ext.toolbar.Toolbar', {
+//             id: this.id + 'toolbar',
+//             width: '100%',
+//             cls: 'gm-navigation-bar',
+//             border: false,
+//             items: [
+//                 '->',
+//                 {
+//                     xtype: 'tbtext',
+//                     text: 'Mouse position: ',
+//                     style:'color:slategray'
+//                 },
+//                 {
+//                     id: this.id + 'mousePosition',
+//                     text: '<span id="'+this.id+'mousePositionEl">&nbsp;</span>',
+//                     xtype: 'tbtext',
+//                     width:100
+//                 },
+//                 geneLegendPanel.getButton(GENE_BIOTYPE_COLORS),
+//                 snpLegendPanel.getButton(SNP_BIOTYPE_COLORS),
+//                 {
+//                     id: this.id + 'version',
+//                     xtype: 'tbtext',
+//                     margin: '0 10 0 15',
+//                     style:'color:slategray',
+//                     text: ' Genome Maps ' + this.version
+//                 }
+//             ]
+//         });
 
-        var bottomBar = Ext.create('Ext.container.Container', {
-            id: this.id + 'bottomBar',
-            renderTo: $(this.div).attr('id'),
-            layout: 'hbox',
-            region: "south",
-            cls: "gm-navigation-bar unselectable",
-            border: true,
-            items: [taskbar, toolbar]
-        });
+//         var bottomBar = Ext.create('Ext.container.Container', {
+//             id: this.id + 'bottomBar',
+//             renderTo: $(this.div).attr('id'),
+//             layout: 'hbox',
+//             region: "south",
+//             cls: "gm-navigation-bar unselectable",
+//             border: true,
+//             items: [taskbar, toolbar]
+//         });
 
         this.rendered = true;
     },

@@ -15,7 +15,7 @@ module.exports = function (grunt) {
                     'src/gm-plugins-config.js',
                     'src/gm-navigation-bar.js',
                     'src/gm-status-bar.js',
-                    'src/genome-maps.js'
+                    'src/genome-maps-core.js'
                 ],
                 dest: '<%= def.build %>/<%= def.name %>.js'
             }
@@ -89,9 +89,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-        'curl-dir': {
-
-        },
         rename: {
             dist: {
                 files: [
@@ -118,7 +115,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-rename');
     grunt.loadNpmTasks('grunt-html-build');
-    grunt.loadNpmTasks('grunt-curl');
     grunt.loadNpmTasks('grunt-hub');
 
     // Default task.

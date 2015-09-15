@@ -164,7 +164,7 @@ GenomeMaps.prototype = {
         }
 
         /* Header Widget */
-        this.headerWidget = this._createHeaderWidget('gm-header-widget');
+        //this.headerWidget = this._createHeaderWidget('gm-header-widget');
 
         /* Genome Viewer  */
         this.genomeViewer = this._createGenomeViewer('gm-genome-viewer');
@@ -179,15 +179,6 @@ GenomeMaps.prototype = {
         this.statusBar = this._createStatusBar('status');
 
 
-        //TEST SCROLL BAR
-        var centerHeight = $(window).height() - ($(this.navigationBar.div).height() + $(this.statusBar.div).height() + this.headerWidget.height) - 7;
-        $(this.genomeViewer.centerPanelDiv).css({
-//            height: centerHeight,
-//            'overflow-y': 'scroll',
-//            'overflow-x': 'hidden',
-        });
-
-
         var text = _this.species.text + ' <span style="color: #8396b2">' + _this.species.assembly + '</span>';
         this.headerWidget.setDescription(text);
 
@@ -197,21 +188,6 @@ GenomeMaps.prototype = {
         } else {
             this.sessionFinished();
         }
-
-
-        if (this.checkExampleAccount) {
-            /*Load example account info*/
-            OpencgaManager.getAccountInfo({
-                accountId: 'example',
-                sessionId: 'example',
-                lastActivity: 'example',
-                success: function (data) {
-                    _this._loadOpencgaTracks(data, 'example');
-                }
-            });
-        }
-        /**/
-
     },
     _createHeaderWidget: function (targetId) {
         var _this = this;
@@ -486,18 +462,19 @@ GenomeMaps.prototype = {
 
         var _this = this;
 
-        var sidePanel = Ext.create('Ext.panel.Panel', {
-//            title: 'Configuration',
-            width: 250,
-            height: 600,
-//            collapsible: true,
-//            titleCollapse: true,
-//            border:false,
-            layout: 'accordion',
-            items: this.getSidePanelItems(),
-            renderTo: targetId
-        });
-        return sidePanel;
+        return {};
+//         var sidePanel = Ext.create('Ext.panel.Panel', {
+// //            title: 'Configuration',
+//             width: 250,
+//             height: 600,
+// //            collapsible: true,
+// //            titleCollapse: true,
+// //            border:false,
+//             layout: 'accordion',
+//             items: this.getSidePanelItems(),
+//             renderTo: targetId
+//         });
+//         return sidePanel;
     },
     _createStatusBar: function (targetId) {
         var _this = this;
