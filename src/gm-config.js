@@ -13,7 +13,7 @@
  **/
 CELLBASE_VERSION = "v3";
 //CELLBASE_HOST = "http://ws.bioinfo.cipf.es/cellbase/rest";
-CELLBASE_HOST = "http://www.ebi.ac.uk/cellbase/webservices/rest";
+CELLBASE_HOST = "https://www.ebi.ac.uk/cellbase/webservices/rest";
 OPENCGA_HOST = "http://ws.bioinfo.cipf.es/opencga/rest";
 OPENCGA_LOCALHOST = "http://localhost:61976/opencga/rest";
 
@@ -320,7 +320,7 @@ var DAS_TRACKS = [
             },
             {"name": "Regulatory",
                 "sources": [
-                    {"name": "miRNAs", "url": "http://www.ebi.ac.uk/das-srv/genomicdas/das/rnoprimiRNA/", "checked": false}
+                    {"name": "miRNAs", "url": "https://www.ebi.ac.uk/das-srv/genomicdas/das/rnoprimiRNA/", "checked": false}
                 ]
             }
         ]
