@@ -55,12 +55,12 @@ GmNavigationBar.prototype = {
         var _this = this;
         this.targetId = (targetId) ? targetId : this.targetId;
         if ($('#' + this.targetId).length < 1) {
-            console.log('targetId not found in DOM');
+            console.error('targetId not found in DOM',targetId);
             return;
         }
 
         this.targetDiv = $('#' + this.targetId)[0];
-        this.div = $('<div id="navigation-bar' + this.id + '" class="unselectable"></div>')[0];
+        this.div = $('<div id="navigation-bar' + this.id + '" class="unselectable gm-navigation-bar"></div>')[0];
         $(this.targetDiv).append(this.div);
 
 //         var toolbar = Ext.create('Ext.toolbar.Toolbar', {

@@ -23,14 +23,13 @@ function GenomeMaps(args) {
 
     _.extend(this, Backbone.Events);
 
-    var _this = this;
     this.id = Utils.genId("GenomeMaps");
 
     //set default args
     this.suiteId = 9;
     this.title = 'Genome Maps';
     this.description = "Genomic data visualization";
-    this.version = "3.1.7";
+    this.version = "3.1.7a";
     this.border = true;
     this.trackIdCounter = 1;
     this.resizable = true;
@@ -64,11 +63,11 @@ GenomeMaps.prototype = {
         console.log("Initializing GenomeMaps");
         this.targetDiv = $('#' + this.targetId)[0];
         this.div = $('<div id="genome-maps"></div>')[0];
-        $(this.targetDiv).append(this.div);
+        $(this.targetDiv).addClass('genome-maps').append(this.div);
 
         $(this.div).append('<div id="gm-header-widget"></div>');
         $(this.div).append('<div id="gm-genome-viewer"></div>');
-        $(this.div).append('<div id="gm-dummy" style="height:22px;background-color: #eee"></div>');
+        // $(this.div).append('<div id="gm-dummy" style="height:22px;background-color: #eee"></div>');
         this.width = ($(this.div).width());
 
         if (this.border) {
@@ -164,7 +163,7 @@ GenomeMaps.prototype = {
         }
 
         /* Header Widget */
-        //this.headerWidget = this._createHeaderWidget('gm-header-widget');
+        this.headerWidget = this._createHeaderWidget('gm-header-widget');
 
         /* Genome Viewer  */
         this.genomeViewer = this._createGenomeViewer('gm-genome-viewer');
@@ -176,7 +175,7 @@ GenomeMaps.prototype = {
         this.sidePanel = this._createSidePanel(this.genomeViewer.getRightSidePanelId());
 
         /* Genome Viewer  */
-        this.statusBar = this._createStatusBar('status');
+        // this.statusBar = this._createStatusBar('status');
 
 
         var text = _this.species.text + ' <span style="color: #8396b2">' + _this.species.assembly + '</span>';
@@ -191,31 +190,32 @@ GenomeMaps.prototype = {
     },
     _createHeaderWidget: function (targetId) {
         var _this = this;
-        var headerWidget = new HeaderWidget({
-            targetId: targetId,
-            autoRender: true,
-            appname: this.title,
-            description: this.description,
-            version: this.version,
-            suiteId: this.suiteId,
-            accountData: this.accountData,
-            chunkedUpload: false,
-            handlers: {
-                'login': function (event) {
-                    Ext.example.msg('Welcome', 'You logged in');
-                    _this.sessionInitiated();
-                },
-                'logout': function (event) {
-                    Ext.example.msg('Good bye', 'You logged out');
-                    _this.sessionFinished();
+        var headerWidget = { draw: function() {} };
+        // var headerWidget = new HeaderWidget({
+        //     targetId: targetId,
+        //     autoRender: true,
+        //     appname: this.title,
+        //     description: this.description,
+        //     version: this.version,
+        //     suiteId: this.suiteId,
+        //     accountData: this.accountData,
+        //     chunkedUpload: false,
+        //     handlers: {
+        //         'login': function (event) {
+        //             //Ext.example.msg('Welcome', 'You logged in');
+        //             _this.sessionInitiated();
+        //         },
+        //         'logout': function (event) {
+        //             //Ext.example.msg('Good bye', 'You logged out');
+        //             _this.sessionFinished();
 
-                },
-                'account:change': function (event) {
-                    _this.setAccountData(event.response);
+        //         },
+        //         'account:change': function (event) {
+        //             _this.setAccountData(event.response);
 
-                }
-            }
-        });
+        //         }
+        //     }
+        // });
         headerWidget.draw();
 
         return headerWidget;
@@ -320,7 +320,15 @@ GenomeMaps.prototype = {
 
         var goFeature = function (featureName) {
             if (featureName != null) {
-                if (featureName.slice(0, "rs".length) == "rs" || featureName.slice(0, "AFFY_".length) == "AFFY_" || featureName.slice(0, "SNP_".length) == "SNP_" || featureName.slice(0, "VAR_".length) == "VAR_" || featureName.slice(0, "CRTAP_".length) == "CRTAP_" || featureName.slice(0, "FKBP10_".length) == "FKBP10_" || featureName.slice(0, "LEPRE1_".length) == "LEPRE1_" || featureName.slice(0, "PPIB_".length) == "PPIB_") {
+                if (featureName.slice(0, "rs".length) == "rs" ||
+                    featureName.slice(0, "AFFY_".length) == "AFFY_" ||
+                    featureName.slice(0, "SNP_".length) == "SNP_" ||
+                    featureName.slice(0, "VAR_".length) == "VAR_" ||
+                    featureName.slice(0, "CRTAP_".length) == "CRTAP_" ||
+                    featureName.slice(0, "FKBP10_".length) == "FKBP10_" ||
+                    featureName.slice(0, "LEPRE1_".length) == "LEPRE1_" ||
+                    featureName.slice(0, "PPIB_".length) == "PPIB_") {
+
                     this.openSNPListWidget(featureName);
                 } else {
                     console.log(featureName);
