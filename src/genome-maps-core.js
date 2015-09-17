@@ -179,7 +179,7 @@ GenomeMaps.prototype = {
 
 
         var text = _this.species.text + ' <span style="color: #8396b2">' + _this.species.assembly + '</span>';
-        this.headerWidget.setDescription(text);
+        if (this.headerWidget.setDescription) { this.headerWidget.setDescription(text); }
 
         //check login
         if ($.cookie('bioinfo_sid') != null) {
@@ -237,8 +237,8 @@ GenomeMaps.prototype = {
 //            regionPanelHidden: regionPanelHidden,
             availableSpecies: AVAILABLE_SPECIES,
             popularSpecies: POPULAR_SPECIES,
-            drawNavigationBar: false,
-            drawStatusBar: false,
+            drawNavigationBar: true,
+            drawStatusBar: true,
 //            height: this.height - this.headerWidget.height,
 //            width: this.width-18,
             handlers: {
@@ -282,6 +282,51 @@ GenomeMaps.prototype = {
             })
         });
         genomeViewer.addOverviewTrack(gene);
+
+        var tracks = [];
+
+        this.sequence = new SequenceTrack({
+            height: 30,
+            visibleRegionSize: 400,
+            renderer: new SequenceRenderer(),
+            dataAdapter: new SequenceAdapter({
+                category: "genomic",
+                subCategory: "region",
+                resource: "sequence",
+                species: genomeViewer.species
+            })
+        });
+        tracks.push(this.sequence);
+
+        this.gene = new GeneTrack({
+            title: 'Gene',
+            minHistogramRegionSize: 20000000,
+            maxLabelRegionSize: 10000000,
+            minTranscriptRegionSize: 500000,
+            height: 150,
+            renderer: new GeneRenderer({
+                handlers: {
+                    'feature:click': function(e) {
+                        console.log(e);
+                    }
+                }
+            }),
+            dataAdapter: new CellBaseAdapter({
+                category: "genomic",
+                subCategory: "region",
+                resource: "gene",
+                species: genomeViewer.species,
+                params: {
+                    exclude: 'transcripts.tfbs,transcripts.xrefs,transcripts.exons.sequence,chunkIds'
+                },
+                cacheConfig: {
+                    chunkSize: 100000
+                }
+            })
+        });
+        tracks.push(this.gene);
+
+        genomeViewer.addTrack(tracks);
 
 
         genomeViewer.chromosomePanel.hide();
@@ -510,12 +555,12 @@ GenomeMaps.prototype = {
 }
 
 GenomeMaps.prototype.sessionInitiated = function () {
-    Ext.getStore(this.id + 'import').getRootNode().findChild('id', 'opencga').set('text', 'Browse remote data');
+    // Ext.getStore(this.id + 'import').getRootNode().findChild('id', 'opencga').set('text', 'Browse remote data');
 };
 
 GenomeMaps.prototype.sessionFinished = function () {
-    Ext.getStore(this.id + 'import').getRootNode().findChild('id', 'opencga').set('text', 'Browse remote data <span class="tip">(login required)</span>');
-    this._unloadOpencgaTracks();
+    // Ext.getStore(this.id + 'import').getRootNode().findChild('id', 'opencga').set('text', 'Browse remote data <span class="tip">(login required)</span>');
+    // this._unloadOpencgaTracks();
     this.accountData = null;
 };
 
