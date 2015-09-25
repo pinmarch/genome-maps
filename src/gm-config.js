@@ -3,38 +3,14 @@
  * Changes to this file may cause the application does not work as it should
  *
  * Default hosts
- * CELLBASE_HOST = "http://usa.cellbase.org:8080/cellbase/rest";
  * CELLBASE_HOST = "http://ws.bioinfo.cipf.es/cellbase/rest";
  * OPENCGA_HOST = "http://ws.bioinfo.cipf.es/gcsa/rest";
  *
- * Deprecated hosts
- * WUM_HOST = "http://ws.bioinfo.cipf.es/wum/rest";
- *
  **/
 CELLBASE_VERSION = "v3";
-//CELLBASE_HOST = "http://ws.bioinfo.cipf.es/cellbase/rest";
 CELLBASE_HOST = "https://www.ebi.ac.uk/cellbase/webservices/rest";
 OPENCGA_HOST = "http://ws.bioinfo.cipf.es/opencga/rest";
 OPENCGA_LOCALHOST = "http://localhost:61976/opencga/rest";
-
-/** Devel only: custom URL check **/
-if (
-    window.location.host.indexOf("localhost") != -1 ||
-        window.location.host.indexOf("fsalavert") != -1 ||
-        window.location.host.indexOf("rsanchez") != -1 ||
-        window.location.host.indexOf("imedina") != -1 ||
-        window.location.href.indexOf("http://bioinfo.cipf.es/apps-beta") != -1 ||
-        window.location.protocol === "file:"
-    ) {
-
-//    CELLBASE_HOST = "http://ws-beta.bioinfo.cipf.es/cellbase/rest";
-    //CELLBASE_HOST = "http://rsanchez:8080/cellbase/rest";
-    //CELLBASE_HOST = "http://imedina:8080/cellbase/rest";
-
-    OPENCGA_HOST = "http://ws-beta.bioinfo.cipf.es/opencga-staging/rest";
-//    OPENCGA_HOST = "http://fsalavert:8080/opencga/rest";
-}
-
 
 /*Panel settings*/
 CONFPANELHIDDEN = false;
@@ -62,9 +38,6 @@ var AVAILABLE_SPECIES = {
 //                {"text": "Gallus gallus", "assembly": "Galgal4", "region": {"chromosome": "1", "start": 1000000, "end": 1000000}, "chromosomes": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "32", "W", "Z", "MT"], "url": "ftp://ftp.ensembl.org/pub/release-71/"},
 //                {"text": "Gorilla gorilla", "assembly": "gorGor3.1", "region": {"chromosome": "1", "start": 1000000, "end": 1000000}, "chromosomes": ["1", "2a", "2b", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "MT"], "url": "ftp://ftp.ensembl.org/pub/release-71/"},
                 {"text": "Homo sapiens", "assembly": "GRCh37.p10", "region": {"chromosome": "13", "start": 32889611, "end": 32973805}, "chromosomes": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "Y", "MT"], "url": "ftp://ftp.ensembl.org/pub/release-71/"},
-//                {"text": "Homo sapiens", "assembly": "GRCh37.p10", "region": {"chromosome": "20", "start": 32878277, "end": 32878277}, "chromosomes": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "Y", "MT"], "url": "ftp://ftp.ensembl.org/pub/release-71/"},
-//                {"text": "Homo sapiens", "assembly": "GRCh37.p10", "region": {"chromosome": "13", "start": 32889599, "end": 32889739}, "chromosomes": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "Y", "MT"], "url": "ftp://ftp.ensembl.org/pub/release-71/"},
-//                {"text": "Homo sapiens", "assembly": "GRCh37.p10", "region": {"chromosome": "1", "start": 32877109, "end": 32882337}, "chromosomes": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "Y", "MT"], "url": "ftp://ftp.ensembl.org/pub/release-71/"},
 //                {"text": "Macaca mulatta", "assembly": "MMUL_1.0", "region": {"chromosome": "1", "start": 1000000, "end": 1000000}, "chromosomes": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "X", "MT"], "url": "ftp://ftp.ensembl.org/pub/release-71/"},
                 {"text": "Mus musculus", "assembly": "GRCm38.p1", "region": {"chromosome": "1", "start": 18422009, "end": 18422009}, "chromosomes": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "X", "Y", "MT"], "url": "ftp://ftp.ensembl.org/pub/release-71/"},
 //                {"text": "Oryctolagus cuniculus", "assembly": "oryCun2", "region": {"chromosome": "1", "start": 1000000, "end": 1000000}, "chromosomes": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "X", "MT"], "url": "ftp://ftp.ensembl.org/pub/release-71/"},

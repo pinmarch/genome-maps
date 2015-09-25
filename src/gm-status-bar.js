@@ -116,4 +116,4 @@ GmStatusBar.prototype = {
         $('#'+this.id + 'mousePositionEl').html(text);
     }
 
-}
+};

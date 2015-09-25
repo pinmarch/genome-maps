@@ -13,9 +13,10 @@ module.exports = function (grunt) {
             dist: {
                 src: [
                     'src/gm-plugins-config.js',
-                    'src/gm-navigation-bar.js',
-                    'src/gm-status-bar.js',
-                    'src/genome-maps-core.js'
+                    '!src/gm-navigation-bar.js',
+                    '!src/gm-status-bar.js',
+                    'src/genome-maps-core.js',
+                    '!src/gm-extensions.js'
                 ],
                 dest: '<%= def.build %>/<%= def.name %>.js'
             }
