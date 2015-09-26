@@ -82,7 +82,7 @@ GenomeMaps.prototype = {
                     if (!_this.resizing) {//avoid multiple resize events
                         _this.resizing = true;
                         setTimeout(function () {
-                            _this.setWidth($(_this.targetDiv).width());
+                            _this.setWidth($(_this.div).width());
                             _this.resizing = false;
                         }, 400);
                     }
