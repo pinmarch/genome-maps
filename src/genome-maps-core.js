@@ -188,11 +188,7 @@ GenomeMaps.prototype = {
     },
     _createHeaderWidget: function (targetId) {
         var _this = this;
-        return { updateSpecies: function(species) {
-            var text = species.text + ' <span style="color: #8396b2">' + species.assembly + '</span>';
-            //_this.headerWidget.setDescription(text);
-            _this.trigger('headerWidget:updateSpecies', { sender: _this });
-        } };
+        return undefined;
     },
     _createSidePanel: function (targetId) {
         var _this = this;
@@ -315,6 +311,11 @@ GenomeMaps.prototype = {
         return genomeViewer;
     },
 
+    updateSpecies: function(species) {
+        var text = species.text + ' <span style="color: #8396b2">' + species.assembly + '</span>';
+        if (this.headerWidget) { this.headerWidget.setDescription(text); }
+        this.trigger('headerWidget:updateSpecies', { sender: _this });
+    },
     setWidth: function (width) {
         this.width = width;
         this.genomeViewer.setWidth(width);
