@@ -261,7 +261,7 @@ GenomeMaps.prototype = {
                 }
             })
         });
-        //genomeViewer.addOverviewTrack(gene);
+        genomeViewer.addOverviewTrack(gene);
 
         var tracks = [];
 
