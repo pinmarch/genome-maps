@@ -314,7 +314,7 @@ GenomeMaps.prototype = {
     updateSpecies: function(species) {
         var text = species.text + ' <span style="color: #8396b2">' + species.assembly + '</span>';
         if (this.headerWidget) { this.headerWidget.setDescription(text); }
-        this.trigger('headerWidget:updateSpecies', { sender: _this });
+        this.trigger('headerWidget:updateSpecies', { sender: this });
     },
     setWidth: function (width) {
         this.width = width;
