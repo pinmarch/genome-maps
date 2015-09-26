@@ -81,8 +81,8 @@ GenomeMaps.prototype = {
                 if (event.target == window) {
                     if (!_this.resizing) {//avoid multiple resize events
                         _this.resizing = true;
-                        _this.setWidth($(_this.div).width());
                         setTimeout(function () {
+                            _this.setWidth($(_this.targetDiv).width());
                             _this.resizing = false;
                         }, 400);
                     }
@@ -209,7 +209,7 @@ GenomeMaps.prototype = {
             autoRender: true,
             sidePanel: false,
             region: this.region,
-            species: speciesObj,
+            species: this.species,
             border: false,
             version: this.version,
             resizable: false,
