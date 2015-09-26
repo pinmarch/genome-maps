@@ -319,8 +319,8 @@ GenomeMaps.prototype = {
     setWidth: function (width) {
         this.width = width;
         this.genomeViewer.setWidth(width);
-        this.headerWidget.setWidth(width);
-        this.statusBar.setWidth(width);
+        if (this.headerWidget) { this.headerWidget.setWidth(width); }
+        if (this.statusBar) { this.statusBar.setWidth(width); }
     },
     getRegionByFeature: function (name, feature) {
         var speciesCode = Utils.getSpeciesCode(this.species.text);
