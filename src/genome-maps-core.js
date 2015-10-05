@@ -241,7 +241,7 @@ GenomeMaps.prototype = {
         });
         var gene = new FeatureTrack({
             targetId: null,
-            id: 2,
+            id: 'Features',
             minHistogramRegionSize: 20000000,
             maxLabelRegionSize: 10000000,
             height: 100,
@@ -288,6 +288,16 @@ GenomeMaps.prototype = {
                 handlers: {
                     'feature:click': function(e) {
                         console.log(e);
+                        // switch (e.featureType) {
+                        //     case "gene":
+                        //         new GeneInfoWidget(null, this.dataAdapter.species).draw(args);
+                        //         break;
+                        //     case "transcript":
+                        //         new TranscriptInfoWidget(null, this.dataAdapter.species).draw(args);
+                        //         break;
+                        //     default:
+                        //         break;
+                        // }
                     }
                 }
             }),
@@ -342,10 +352,10 @@ GenomeMaps.prototype = {
         return {};
     },
     sessionInitiated: function () {
-        this.trigger('session:initialized', {});
+        this.trigger('session:initialized', { sender: this });
     },
     sessionFinished: function () {
-        this.trigger('session:finished', {});
+        this.trigger('session:finished', { sender: this });
         this.accountData = null;
     },
     setAccountData: function (response) {
