@@ -55,12 +55,15 @@ function GenomeMaps(args) {
 GenomeMaps.prototype = {
     render: function (targetId) {
         var _this = this;
+
         this.targetId = (targetId) ? targetId : this.targetId;
         if ($('#' + this.targetId).length < 1) {
             console.log('targetId not found in DOM');
             return;
         }
+
         console.log("Initializing GenomeMaps");
+
         this.targetDiv = $('#' + this.targetId)[0];
         this.div = $('<div id="genome-maps"></div>')[0];
         $(this.targetDiv).addClass('genome-maps').append(this.div);
@@ -155,28 +158,30 @@ GenomeMaps.prototype = {
         }
 
     },
+
     draw: function () {
         var _this = this;
+
         if (!this.rendered) {
             console.info('Genome Maps is not rendered yet');
             return;
         }
 
         /* Header Widget */
-        this.headerWidget = this._createHeaderWidget('gm-header-widget');
+        this.headerWidget = this._drawHeaderWidget('gm-header-widget');
         this.updateSpecies(this.species);
 
         /* Status Bar  */
-        this.statusBar = this._createStatusBar('gm-statusbar-widget');
+        this.statusBar = this._drawStatusBar('gm-statusbar-widget');
 
         /* Genome Viewer  */
-        this.genomeViewer = this._createGenomeViewer('gm-genome-viewer');
+        this.genomeViewer = this._drawGenomeViewer('gm-genome-viewer');
 
         /* Navigation Bar */
-        this.navigationBar = this._createNavigationBar(this.genomeViewer.getNavigationPanelId());
+        this.navigationBar = this._drawNavigationBar(this.genomeViewer.getNavigationPanelId());
 
         /* Side Panel  */
-        this.sidePanel = this._createSidePanel(this.genomeViewer.getRightSidePanelId());
+        this.sidePanel = this._drawSidePanel(this.genomeViewer.getRightSidePanelId());
 
 
         //check login
@@ -186,24 +191,26 @@ GenomeMaps.prototype = {
             this.sessionFinished();
         }
     },
-    _createHeaderWidget: function (targetId) {
+
+    _drawHeaderWidget: function (targetId) {
         var _this = this;
         return undefined;
     },
-    _createSidePanel: function (targetId) {
+    _drawSidePanel: function (targetId) {
         var _this = this;
         return undefined;
     },
-    _createStatusBar: function (targetId) {
+    _drawStatusBar: function (targetId) {
         var _this = this;
         return undefined;
     },
-    _createNavigationBar: function (targetId) {
+    _drawNavigationBar: function (targetId) {
         var _this = this;
         return undefined;
     },
-    _createGenomeViewer: function (targetId) {
+    _drawGenomeViewer: function (targetId) {
         var _this = this;
+
         var genomeViewer = new GenomeViewer({
             targetId: targetId,
             autoRender: true,
@@ -235,8 +242,7 @@ GenomeMaps.prototype = {
         var renderer = new FeatureRenderer(FEATURE_TYPES.gene);
         renderer.on({
             'feature:click': function (event) {
-                console.log(event);
-                //new GeneInfoWidget(null, _this.species).draw(event);
+                _this.trigger('feature:click', event);
             }
         });
         var gene = new FeatureTrack({
@@ -287,7 +293,7 @@ GenomeMaps.prototype = {
             renderer: new GeneRenderer({
                 handlers: {
                     'feature:click': function(e) {
-                        console.log(e);
+                        _this.trigger('feature:click', e);
                         // switch (e.featureType) {
                         //     case "gene":
                         //         new GeneInfoWidget(null, this.dataAdapter.species).draw(args);
@@ -316,7 +322,43 @@ GenomeMaps.prototype = {
         });
         tracks.push(this.gene);
 
+
+        var renderer = new FeatureRenderer(FEATURE_TYPES.snp);
+        renderer.on({
+            'feature:click': function (event) {
+                _this.trigger('feature:click', event);
+            }
+        });
+        this.snp = new FeatureTrack({
+            targetId: null,
+            id: 'Snps',
+            title: 'SNP',
+            featureType: 'SNP',
+            minHistogramRegionSize: 12000,
+            maxLabelRegionSize: 3000,
+            height: 100,
+            renderer: renderer,
+            dataAdapter: new CellBaseAdapter({
+                category: "genomic",
+                subCategory: "region",
+                resource: "snp",
+                params: {
+                    exclude: 'transcriptVariations,xrefs,samples'
+                },
+                species: genomeViewer.species,
+                cacheConfig: {
+                    chunkSize: 10000
+                }
+            })
+        });
+        tracks.push(this.snp);
+
         genomeViewer.addTrack(tracks);
+
+
+        this.on('feature:click', function (event) {
+            console.log('feature:click', event);
+        });
 
         return genomeViewer;
     },
@@ -332,6 +374,7 @@ GenomeMaps.prototype = {
         if (this.headerWidget) { this.headerWidget.setWidth(width); }
         if (this.statusBar) { this.statusBar.setWidth(width); }
     },
+
     getRegionByFeature: function (name, feature) {
         var speciesCode = Utils.getSpeciesCode(this.species.text);
         var data = CellBaseManager.get({
@@ -345,12 +388,14 @@ GenomeMaps.prototype = {
             },
             async: false
         });
+
         var f = data.response[0].result[0];
         if (_.isObject(f)) {
             return {chromosome: f.chromosome, start: f.start, end: f.end}
         }
         return {};
     },
+
     sessionInitiated: function () {
         this.trigger('session:initialized', { sender: this });
     },
@@ -362,4 +407,4 @@ GenomeMaps.prototype = {
         this.accountData = response;
         this.trigger('session:updateAccountData', JSON.parse(JSON.stringify(response)));
     }
-}
+};
