@@ -34,11 +34,23 @@ module.exports = function (grunt) {
         copy: {
             build: {
                 files: [
-                    {   expand: true, cwd: './src', src: ['gm-config.js'], dest: '<%= def.build %>/' },
-                    {   expand: true, cwd: './<%= def.jsorolla %>', src: ['vendor/**'], dest: '<%= def.build %>/'  },
-                    {   expand: true, cwd: './<%= def.jsorolla %>', src: ['styles/**'], dest: '<%= def.build %>/'  },
-                    {   expand: true, cwd: './<%= def.jsorolla %>/src/lib', src: ['worker*'], dest: '<%= def.build %>/' },
-                    {   expand: true, cwd: './<%= def.jsorolla %>/build/<%= jsopkg.version %>/genome-viewer/', src: ['genome-viewer*.js', 'gv-config.js'], dest: '<%= def.build %>/' }
+                    {   expand: true, cwd: './src',
+                        src: ['gm-config.js'],
+                        dest: '<%= def.build %>/'
+                    },
+
+                    {   expand: true, cwd: './<%= def.jsorolla %>',
+                        src: ['vendor/**', '!vendor/core/**'],
+                        dest: '<%= def.build %>/'
+                    },
+                    {   expand: true, cwd: './<%= def.jsorolla %>/src/lib',
+                        src: ['worker*'],
+                        dest: '<%= def.build %>/'
+                    },
+                    {   expand: true, cwd: './<%= def.jsorolla %>/build/<%= jsopkg.version %>/genome-viewer/',
+                        src: ['genome-viewer*.js', 'gv-config.js', 'styles/**'],
+                        dest: '<%= def.build %>/'
+                    }
                 ]
             }
         },
@@ -59,7 +71,7 @@ module.exports = function (grunt) {
                             '<%= def.build %>/vendor/typeahead.js-bootstrap.css',
                             '<%= def.build %>/vendor/jquery.simplecolorpicker.css'
                         ],
-                        css: ['<%= def.build %>/styles/css/style.css']
+                        css: ['<%= def.build %>/styles/css/genome-viewer.css']
                     },
                     scripts: {
                         vendor: [
