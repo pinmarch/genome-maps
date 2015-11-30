@@ -161,14 +161,46 @@
 <!-- /build -->
 
 <script>
-    var genomeMaps;
     $(function () {
         //CheckBrowser();
-        genomeMaps = new GenomeMaps({
+        window.genomeMaps = new GenomeMaps({
             targetId: 'application',
             autoRender: true
         }); //the div must exist
-        genomeMaps.draw();
+        window.genomeMaps.draw();
+
+
+        function handleDragEnter(e) {
+            e.preventDefault();
+            $("#dropreception").addClass('dropacceptable');
+        }
+
+        function handleDragLeave(e) {
+            e.preventDefault();
+            $("#dropreception").removeClass('dropacceptable');
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.originalEvent.dataTransfer.dropEffect = 'copy';
+            return false;
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) e.stopPropagation();
+            e.preventDefault();
+            $("#dropreception").removeClass('dropacceptable');
+
+            console.log(e.originalEvent.dataTransfer.files);
+            return false;
+        }
+
+        $("body").on("dragenter", handleDragEnter)
+        $("#dropreception")
+            .on("dragleave", handleDragLeave)
+            .on("dragover", handleDragOver)
+            .on("drop", handleDrop)
+            .on("dragend", handleDragLeave);
     });
 </script>
 <style type="text/css">
@@ -182,6 +214,23 @@
 
     body {
         background-color: #f5f5f5;
+    }
+
+    #dropreception {
+        display: none;
+    }
+
+    #dropreception.dropacceptable {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 900;
+        display: block;
+        background: rgb(122, 122, 255);
+        border: 6px solid lightblue;
+        opacity: 0.5;
     }
 
     #application {
@@ -248,6 +297,7 @@
 </style>
 </head>
 <body>
+<div id="dropreception"></div>
 <div id="checkBrowser"></div>
 <div id="application"></div>
 </body>
