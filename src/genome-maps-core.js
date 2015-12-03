@@ -406,5 +406,10 @@ GenomeMaps.prototype = {
     setAccountData: function (response) {
         this.accountData = response;
         this.trigger('session:updateAccountData', JSON.parse(JSON.stringify(response)));
+    },
+
+    addTrack: function(track) {
+        this.genomeViewer.addTrack(track);
+        this.trigger('track:added', { track: track, sender: this });
     }
 };
