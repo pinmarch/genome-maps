@@ -221,6 +221,33 @@
             $("#dropreception").removeClass('dropacceptable');
 
             console.log(e.originalEvent.dataTransfer.files);
+            var infiles = {};
+            Array.prototype.slice.call(e.originalEvent.dataTransfer.files).forEach(function(v) {
+                infiles[v.name] = v;
+                if (/bai$/.test(v.name)) { infiles.bai = v; }
+                if (/bam$/.test(v.name)) { infiles.bam = v; }
+            });
+
+            var bamdata = new BamFileDataSource({
+                baifile: infiles.bai, bamfile: infiles.bam
+            });
+            // bamdata.on('bailoaded', function(e) {
+            //     console.log("bailoaded", e);
+            // });
+            bamdata.on('bamready', function(e) {
+                console.log("bamready", e);
+                if (e.bamheader.chrToIndex["chr13"] == null)
+                    e.bamheader.chrToIndex["chr13"] = e.bamheader.chrToIndex["c13.fa"];
+                bamdata.collectReads("chr13", 32889610, 32973805);
+                if (e.bamheader.chrToIndex["chr17"] == null)
+                    e.bamheader.chrToIndex["chr17"] = e.bamheader.chrToIndex["c17.fa"];
+                bamdata.collectReads("chr17", 37856254, 37884915);
+            });
+            bamdata.on('bamreadloaded', function(e) {
+                console.log("bam-readloaded", e);
+            });
+            bamdata.fetch();
+
             return false;
         }
 

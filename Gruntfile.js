@@ -89,6 +89,8 @@ module.exports = function (grunt) {
                             '<%= def.build %>/vendor/gl-matrix-min*.js',
                             '<%= def.build %>/vendor/ChemDoodleWeb*.js',
                             '<%= def.build %>/vendor/purl*.js',
+
+                            '<%= def.build %>/vendor/jszlib.inflate*.js',
                         ],
                         config: [
                             '<%= def.build %>/gv-config.js'
