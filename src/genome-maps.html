@@ -22,10 +22,11 @@
 <link type="text/css" rel="stylesheet" href="../lib/jsorolla/vendor/typeahead.js-bootstrap.css">
 <!-- /build -->
 
-
 <!-- build:style css -->
 <link type="text/css" rel="stylesheet" href="../lib/jsorolla/styles/css/style.css"/>
 <!-- /build -->
+
+<link type="text/css" rel="stylesheet" href="styles/gm-styles.css"/>
 
 <script type="text/javascript">
     WORKERS_PATH = "./";
@@ -59,6 +60,8 @@
 <!-- /build -->
 
 <script type="text/javascript" src="gm-config.js"></script>
+<script type="text/javascript" src="gm-config-custom.js"></script>
+<script type="text/javascript" src="gm-customize.js"></script>
 
 <!-- build:script lib -->
 
@@ -169,94 +172,7 @@
         }); //the div must exist
         window.genomeMaps.draw();
 
-        OpencgaManager.setHost("http://localhost:8000/opencga-server-beta/rest");
-        $.cookie("bioinfo_sid", "tvp36wV5inMN97s6rxw5");
-
-        // add bam track
-        var object = {"acl":[],"creationTime":"20130524163241","date":"20130524163241","description":"","diskUsage":188671102,"fileBioType":"","fileFormat":"bam","fileName":"HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam","fileType":"r","organization":"","responsible":"","status":"ready","bucketId":"default","oid":"HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam","leaf":true,"icon":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR…b6Df7wB/5eA+4zmEyehxk451itPrhFksSxUeP+lf+z+wXwdayJk/mqtgAAAABJRU5ErkJggg==","text":"HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam","qtip":"HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam","account":"bam"};
-        var bamTrack = new BamTrack({
-            targetId: null,
-            title: "HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam",
-            histogramZoom: 0,
-            height: 200,
-            visibleRange: {start: 60, end: 100},
-
-            renderer: new BamRenderer(FEATURE_TYPES.bam),
-
-            dataAdapter: new BamAdapter({
-                category: "bam",
-                resource: object,
-                species: genomeMaps.species,
-                cacheConfig: {
-                    chunkSize: 50000
-                },
-                filters: {},
-                options: {},
-                featureConfig: FEATURE_CONFIG.bam
-            })
-        });
-
-        genomeMaps.addTrack(bamTrack);
-
-
-        function handleDragEnter(e) {
-            e.preventDefault();
-            $("#dropreception").addClass('dropacceptable');
-        }
-
-        function handleDragLeave(e) {
-            e.preventDefault();
-            $("#dropreception").removeClass('dropacceptable');
-        }
-
-        function handleDragOver(e) {
-            e.preventDefault();
-            e.originalEvent.dataTransfer.dropEffect = 'copy';
-            return false;
-        }
-
-        function handleDrop(e) {
-            if (e.stopPropagation) e.stopPropagation();
-            e.preventDefault();
-            $("#dropreception").removeClass('dropacceptable');
-
-            console.log(e.originalEvent.dataTransfer.files);
-            var infiles = {};
-            Array.prototype.slice.call(e.originalEvent.dataTransfer.files).forEach(function(v) {
-                infiles[v.name] = v;
-                if (/bai$/.test(v.name)) { infiles.bai = v; }
-                if (/bam$/.test(v.name)) { infiles.bam = v; }
-            });
-
-            var bamdata = new BamFileDataSource({
-                baifile: infiles.bai, bamfile: infiles.bam
-            });
-            // bamdata.on('bailoaded', function(e) {
-            //     console.log("bailoaded", e);
-            // });
-            bamdata.on('bamready', function(e) {
-                console.log("bamready", e);
-                if (e.bamheader.chrToIndex["chr13"] == null)
-                    e.bamheader.chrToIndex["chr13"] = e.bamheader.chrToIndex["c13.fa"];
-                bamdata.collectReads("chr13", 32889610, 32973805);
-                if (e.bamheader.chrToIndex["chr17"] == null)
-                    e.bamheader.chrToIndex["chr17"] = e.bamheader.chrToIndex["c17.fa"];
-                bamdata.collectReads("chr17", 37856254, 37884915);
-            });
-            bamdata.on('bamreadloaded', function(e) {
-                console.log("bam-readloaded", e);
-            });
-            bamdata.fetch();
-
-            return false;
-        }
-
-        $("body").on("dragenter", handleDragEnter)
-        $("#dropreception")
-            .on("dragleave", handleDragLeave)
-            .on("dragover", handleDragOver)
-            .on("drop", handleDrop)
-            .on("dragend", handleDragLeave);
+        initialize_custom();
     });
 </script>
 <style type="text/css">
@@ -269,85 +185,6 @@
     }
 
     body {
-        background-color: #f5f5f5;
-    }
-
-    #dropreception {
-        display: none;
-    }
-
-    #dropreception.dropacceptable {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 900;
-        display: block;
-        background: rgb(122, 122, 255);
-        border: 6px solid lightblue;
-        opacity: 0.5;
-    }
-
-    #application {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
-
-    .genome-maps #genome-maps {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
-
-    .genome-maps #genome-maps #gm-header-widget {
-    }
-
-    .genome-maps #genome-maps #gm-genome-viewer {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-    }
-
-    .genome-maps #genome-viewer > div {
-        position: relative;
-        height: 100%;
-    }
-
-    .genome-maps #gm-genome-viewer div.ocb-gv-navigation {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 150%;
-        overflow: hidden;
-    }
-
-    .genome-maps #gm-genome-viewer div.ocb-gv-navigation ul.dropdown-menu {
-        max-height: 350px;
-        overflow-y: auto;
-    }
-
-    .genome-maps #gm-genome-viewer div.ocb-gv-center {
-        position: absolute;
-        top: 40px;
-        bottom: 30px;
-        width: 100%;
-        overflow-y: scroll;
-        overflow-x: hidden;
-    }
-
-    .genome-maps #gm-genome-viewer div.ocb-gv-status {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 26px;
-        overflow: hidden;
-        border: 1px solid lightgrey;
-        z-index: 50;
         background-color: #f5f5f5;
     }
 </style>

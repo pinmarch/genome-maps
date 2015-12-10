@@ -35,7 +35,7 @@ module.exports = function (grunt) {
             build: {
                 files: [
                     {   expand: true, cwd: './src',
-                        src: ['gm-config.js'],
+                        src: ['gm-config.js', 'gm-config-custom.js', 'gm-customize.js', 'styles/**'],
                         dest: '<%= def.build %>/'
                     },
 

@@ -413,3 +413,44 @@ GenomeMaps.prototype = {
         this.trigger('track:added', { track: track, sender: this });
     }
 };
+
+// =====================
+
+if (!GM_CHROMOSOME_CUSTOM) var GM_CHROMOSOME_CUSTOM = {};
+
+GM_CHROMOSOME_CUSTOM.getMatchingTable = function (species, chromosomelist, orgmap) {
+    var s = _.isString(species) ? species : (species.text ? species.text : DEFAULT_SPECIES.text);
+    var list = GM_CHROMOSOME_CUSTOM[s];
+    if (!list) { return null; }
+
+    var keys = Object.keys(list).filter(function(x) { return x != "original"; }),
+        vals = keys.map(function(x) {
+            return chromosomelist.map(function(c) { return list[x].indexOf(c); });
+        }),
+        commons = vals.map(function(x) {
+            return x.filter(function(c) { return c >= 0; }).length;
+        }),
+        cand = commons.map(function(v, i) {
+            return { key: keys[i], val: v };
+        }).sort(function(a, b) { return b.val - a.val; }),
+        returnmap = {}, aliasmap = [];
+
+    if (cand[0].val == 0) {
+        console.warn("custom chromosome list did not match: " + chromosomelist.join(", "));
+        return null;
+    } else {
+        console.log("custom chromosome list matched:", cand[0].key);
+    }
+
+    chromosomelist.forEach(function(x, i) {
+        var v = list[cand[0].key].indexOf(x);
+        if (v >= 0) {
+            returnmap[list.original[v]] = i;
+            returnmap["chr" + list.original[v]] = i;
+            aliasmap[i] = list.original[v];
+        }
+    });
+
+
+    return { extmap: returnmap, aliasmap: aliasmap };
+};
