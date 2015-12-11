@@ -1,36 +1,36 @@
 ;
 
 function initialize_custom() {
-    OpencgaManager.setHost("http://localhost:8000/opencga-server-beta/rest");
-    $.cookie("bioinfo_sid", "tvp36wV5inMN97s6rxw5");
+    // (function() {
+    //     OpencgaManager.setHost("http://localhost:8000/opencga-server-beta/rest");
+    //     $.cookie("bioinfo_sid", "tvp36wV5inMN97s6rxw5");
 
-    (function() {
-        // add bam track
-        var object = {"acl":[],"creationTime":"20130524163241","date":"20130524163241","description":"","diskUsage":188671102,"fileBioType":"","fileFormat":"bam","fileName":"HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam","fileType":"r","organization":"","responsible":"","status":"ready","bucketId":"default","oid":"HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam","leaf":true,"icon":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR…b6Df7wB/5eA+4zmEyehxk451itPrhFksSxUeP+lf+z+wXwdayJk/mqtgAAAABJRU5ErkJggg==","text":"HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam","qtip":"HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam","account":"bam"};
-        var bamTrack = new BamTrack({
-            targetId: null,
-            title: "HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam",
-            histogramZoom: 0,
-            height: 200,
-            visibleRange: {start: 60, end: 100},
+    //     // add bam track
+    //     var object = {"acl":[],"creationTime":"20130524163241","date":"20130524163241","description":"","diskUsage":188671102,"fileBioType":"","fileFormat":"bam","fileName":"HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam","fileType":"r","organization":"","responsible":"","status":"ready","bucketId":"default","oid":"HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam","leaf":true,"icon":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR…b6Df7wB/5eA+4zmEyehxk451itPrhFksSxUeP+lf+z+wXwdayJk/mqtgAAAABJRU5ErkJggg==","text":"HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam","qtip":"HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam","account":"bam"};
+    //     var bamTrack = new BamTrack({
+    //         targetId: null,
+    //         title: "HG00096.chrom20.ILLUMINA.bwa.GBR.exome.20111114.bam",
+    //         histogramZoom: 0,
+    //         height: 200,
+    //         visibleRange: {start: 60, end: 100},
 
-            renderer: new BamRenderer(FEATURE_TYPES.bam),
+    //         renderer: new BamRenderer(FEATURE_TYPES.bam),
 
-            dataAdapter: new BamAdapter({
-                category: "bam",
-                resource: object,
-                species: genomeMaps.species,
-                cacheConfig: {
-                    chunkSize: 50000
-                },
-                filters: {},
-                options: {},
-                featureConfig: FEATURE_CONFIG.bam
-            })
-        });
+    //         dataAdapter: new BamAdapter({
+    //             category: "bam",
+    //             resource: object,
+    //             species: genomeMaps.species,
+    //             cacheConfig: {
+    //                 chunkSize: 50000
+    //             },
+    //             filters: {},
+    //             options: {},
+    //             featureConfig: FEATURE_CONFIG.bam
+    //         })
+    //     });
 
-        genomeMaps.addTrack(bamTrack);
-    })();
+    //     genomeMaps.addTrack(bamTrack);
+    // })();
 
 
     function handleDragEnter(e) {
@@ -120,9 +120,9 @@ function initialize_custom() {
 
             addBamTrack();
         });
-        bamdata.on('bamreadloaded', function(e) {
-            console.log("bam-readloaded", e);
-        });
+        // bamdata.on('bamreadloaded', function(e) {
+        //     console.log("bam-readloaded", e);
+        // });
         bamdata.fetch();
 
         return false;
