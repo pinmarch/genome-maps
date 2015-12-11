@@ -1,6 +1,6 @@
 {
     "name": "GenomeMaps",
-    "version": "3.1.7a",
+    "version": "3.1.8-alpha",
     "repository": {
         "type": "git",
         "url": "https://github.com/pinmarch/genome-maps.git"
